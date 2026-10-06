@@ -53,13 +53,18 @@ is the rationale layer: read it before "simplifying" anything.
   imports complete. The SQL blocks name theirs with `--`.
 - **The code blocks are compiled and run.** The TypeScript and TSX blocks across the references form one
   project: write each to the path on its first line in a scratch directory, add `vercel.json` with the one
-  cron from `outbox.md`, copy `assets/tests/` in, install `next`, `react`, `@types/react`, `@types/node`,
-  `ai`, `zod`, `@supabase/supabase-js`, `@supabase/ssr`, `vitest` and `typescript`, then
+  cron from `outbox.md`, copy the contents of `assets/tests/` to the scratch root (each suite's first line is
+  its path from the app root, e.g. `lib/github/env.test.ts`), install `next`, `react`, `@types/react`,
+  `@types/node`, `ai`, `zod`, `@supabase/supabase-js`, `@supabase/ssr`, `vitest` and `typescript`, then
 
   ```bash
   npx tsc --noEmit    # strict, noUncheckedIndexedAccess, skipLibCheck, jsx react-jsx, paths {"@/*": ["./*"]}
   npx vitest run      # 49 tests, with the server-only alias from testing.md
+  npx vitest run lib/github/env.test.ts   # one suite
   ```
+
+  `vitest.config.ts` and `test/server-only.ts` are themselves blocks in `testing.md`, written in the same
+  pass. Run from the scratch root: `cron-paths.test.ts` reads `vercel.json` from the working directory.
 
   `skipLibCheck` is not optional, or Next's own declarations fail the run and say nothing about these
   templates. The proxy block in `outbox.md` compiles as a file of its own. The two fragments in
@@ -92,10 +97,15 @@ is the rationale layer: read it before "simplifying" anything.
   own limits (65 536 characters in a body, 256 in a title, a ten-minute App JWT, a ten-second webhook
   budget), and the design parameters (six attempts, a five-minute lease and cron, a 60-second wait for an
   issue, ten reports an hour, ten files, 10 MB and 25 MB caps, a 60-second signed URL, fifty a page, a
-  fifteen-minute stale worker). Do not restate them loosely and do not add new ones. Figures describing the
-  earlier implementation's deployment do not appear anywhere.
+  fifteen-minute stale worker). Do not restate them loosely and do not add new ones. The test count is
+  repeated in the `SKILL.md` description and quick-start step 11, three places in `README.md`,
+  `testing.md`'s opening line and `CHANGELOG.md`; a change to the suites updates all of them. Figures
+  describing the earlier implementation's deployment do not appear anywhere.
 - **Mark additions as additions.** Anything designed in the skill and never run in the earlier
   implementation belongs in the "Added" section of `provenance.md`, stated as such.
+- **Releases.** Commits follow Conventional Commits; releases follow the index's STANDARD.md. A release adds
+  a `CHANGELOG.md` section (Keep a Changelog, SemVer) and updates "The current release is **x.y.z**" in
+  `README.md`'s install section, which nothing else keeps in step.
 - **Evals are not skill content.** A new prompt or an eval result is committed as `chore(evals): ...`,
   never causes a version bump and never rides in a release commit.
 - **Never present the non-negotiables as optional.** The tracker as the only status writer, `/reply` as
