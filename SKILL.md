@@ -13,8 +13,8 @@ description: >
   state_reason, not_planned, /reply, outbox, Vercel Cron 404, "Domain not configured" on a webhook,
   signed upload URL, createSignedUploadUrl, private attachments, draft tool, needs approval. Carries
   an outbox with marker de-duplication, the webhook rules that keep the team's conversation private,
-  login-gated attachments that never become public URLs, the cron and webhook routing every
-  multi-tenant proxy breaks, and 49 tests. Next.js App Router with Postgres and Supabase RLS; the host
+  login-gated attachments that never become public URLs, cron and webhook routes that a multi-tenant
+  proxy serves without a tenant, and 49 tests. Next.js App Router with Postgres and Supabase RLS; the host
   seam is one BugReportsHost object and a client UI module, and the tracker sits behind IssueTracker.
   Not error monitoring, not a help center and not a support inbox.
 ---
@@ -29,10 +29,10 @@ owns the status.** A report is saved under the tenant's policies first and reach
 outbox, so a GitHub outage delays it and loses nothing. Status is written only from GitHub's own
 state, so the app and the tracker can never disagree about whether a bug is fixed.
 
-Written by the engineer who has shipped this module, audited against the bug report bridge of a
-multi-tenant console on Next.js 16, Vercel and Supabase. The templates hold what such a bridge must:
-one issue per report however often a job retries, no team comment shown to a tenant without an
-explicit opt-in, no attachment reachable without a sign-in, and workers that run on any host.
+Written by the engineer who has shipped this module, audited against the earlier implementation, the bug
+report bridge of a multi-tenant console on Next.js 16, Vercel and Supabase. The templates hold what
+such a bridge must: one issue per report however often a job retries, no team comment shown to a tenant
+without an explicit opt-in, no attachment reachable without a sign-in, and workers that run on any host.
 [provenance.md](references/provenance.md) has the record.
 
 ## When to use
