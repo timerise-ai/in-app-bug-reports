@@ -38,7 +38,9 @@ off without an error: reports are saved and wait.
 The module also reads three Supabase variables, under the names Supabase's own guides use:
 `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` in `host.ts`, and `NEXT_PUBLIC_SUPABASE_URL`
 with `NEXT_PUBLIC_SUPABASE_ANON_KEY` in the upload picker. The two `NEXT_PUBLIC_` values are inlined into the
-browser bundle when the app is built; nothing fails without them.
+browser bundle when the app is built; nothing fails without them. Inlined at build is not required at build:
+the build passes without them, and the picker reads them as shipped. Do not route them through a server
+action or a config route to make them "runtime"; set them in the deployment before it builds.
 
 Write all eleven to `.env.example` at the app root, empty, with every name spelled as here. Add the host's
 own below them (an operator allowlist, say), never a renamed one, and when `.gitignore` ignores `.env*`, add

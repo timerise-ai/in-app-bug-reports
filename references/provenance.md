@@ -13,7 +13,7 @@ notification rules and the draft-tool pattern come from it. Its domain code and 
 app, where they belong.
 
 Entries 1 and 2 were observed in production logs: the 404s were counted per route and per deployment
-before the fix and after it. The others were confirmed by reading the code. Seventeen entries.
+before the fix and after it. The others were confirmed by reading the code. Eighteen entries.
 
 ## Fixed in the templates
 
@@ -115,6 +115,14 @@ after more than a hundred newer labelled issues, or on an issue with more than a
 job began, missed its own marker and opened a duplicate. Found by the 0.1.1 agent evals, where one agent
 paged the lookups; reproduced with a fake `fetch` that puts the marker on page 2, and fixed by paging until a
 short page, with a test in `server/github/app.test.ts`. Designed here. See [github-app.md](github-app.md).
+
+### 18. A failed upload never ends as "uploading"
+The upload picker shipped through 0.1.2 ran each upload in an async block with no `catch`. When the action
+was unreachable, or `createBrowserClient` threw because the `NEXT_PUBLIC_` Supabase values were not in the
+bundle, the file stayed "uploading" and the form, which waits for every upload, could never send. Found by
+the 0.1.2 agent evals, where one agent added the `catch`; reproduced by calling `createBrowserClient`
+without its config, which throws. The block now ends in an error state on any throw. No suite covers it:
+the suites run without a React environment. See [attachments.md](attachments.md).
 
 ## If you are porting the earlier implementation
 

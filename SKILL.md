@@ -110,7 +110,8 @@ without an explicit opt-in, no attachment reachable without a sign-in, and worke
 Copy each code block verbatim to the path on its first line. You write `server/bug-reports/host.ts`
 bodies, `components/bug-reports/host-ui.tsx`, the two SQL functions in adaptation.md, the renames
 and the strings. A template that looks redundant is not trimmed: provenance.md says why it is there.
-Nor is one extended: no polling, no `dynamic` export, no check or retry it does not ship.
+Nor is one extended: no polling, no `dynamic` export, no config route for the `NEXT_PUBLIC_` values,
+no check or retry it does not ship.
 Install what the host lacks of `zod`, `@supabase/supabase-js`, `@supabase/ssr`, `server-only` and
 `vitest` (`ai` only with an assistant) with its package manager. The package registry is not an
 external service, and no dependency is replaced by hand-written code or dropped from a template.

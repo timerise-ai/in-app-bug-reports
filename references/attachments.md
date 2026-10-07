@@ -244,7 +244,9 @@ export function useAttachmentUploads() {
           const { error: upErr } = await browserDb().storage.from(BUCKET).uploadToSignedUrl(ticket.value.path, ticket.value.token, file, { contentType: mime });
           if (upErr) return patch(key, { state: "error", error: t("uploadFailed") });
           patch(key, { state: "ready", attachmentId: ticket.value.attachmentId });
-        })();
+          // A throw (the action unreachable, the client missing its config) must not leave the file
+          // "uploading" forever: the form waits for every upload and would never send.
+        })().catch(() => patch(key, { state: "error", error: t("uploadFailed") }));
       }
     },
     [t],
