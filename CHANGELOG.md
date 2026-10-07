@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-10-07
+
+Fix release, from scoring the prompt-1 agent eval runs against 0.1.1.
+
+### Fixed
+
+- `findIssueByMarker` and `findCommentByMarker` (github-app.md) page until a short page. They read only the
+  first 100, so a retry after more than a hundred newer labelled issues, or on an issue with more than a
+  hundred comments, missed its marker and opened a duplicate. Apps built from 0.1.0 or 0.1.1 copy the two
+  methods from `server/bug-reports/tracker.ts`. A new test in `server/github/app.test.ts`: 50 tests.
+
+### Changed
+
+- `SKILL.md`: the cron bypass is the block in outbox.md as written and admits nothing else, and a
+  template is neither trimmed nor extended.
+- adaptation.md: the member and operator pages build as static 404s until `host.ts` reads the session,
+  which needs no `dynamic` export.
+
 ## [0.1.1] - 2026-10-07
 
 Fix release, from scoring the prompt-1 agent eval runs against 0.1.0.
