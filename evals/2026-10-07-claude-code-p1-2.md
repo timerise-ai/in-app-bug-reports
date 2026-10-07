@@ -23,3 +23,7 @@ isolated: true
 timedOut: false
 runUrl: https://github.com/timerise-ai/in-app-bug-reports/actions/runs/37654503780
 ---
+
+Rubric 8/8. Dependencies installed, the nine suites unmodified under vitest at 50, all eleven variables in
+a tracked `.env.example`, the bypass in a new `proxy.ts`, and the three handover points in the quick
+start's words. Scored from the summary.
