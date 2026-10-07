@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2026-10-07
+
+Fix release, from scoring the prompt-1 agent eval runs against 0.1.2.
+
+### Fixed
+
+- The upload picker (attachments.md) ends a thrown upload in an error. With no `catch`, an unreachable
+  action or a `createBrowserClient` missing its `NEXT_PUBLIC_` config left the file "uploading" and the form
+  could never send. Apps built from earlier versions add the `.catch(...)` to the upload block.
+- `MarkdownField` (member-ui.md) takes a `label` for its textarea, which had no accessible name; the
+  new-report form now has its `newTitle` heading.
+
+### Changed
+
+- github-app.md and `SKILL.md`: the `NEXT_PUBLIC_` values are inlined at build, not required at build;
+  the picker reads them as shipped, with no config route.
+- outbox.md, `SKILL.md`, README: `/api/github/webhook` beside `isCronPath` in the proxy bypass is a
+  documented harmless addition, never in `CRON_PATHS`.
+
 ## [0.1.2] - 2026-10-07
 
 Fix release, from scoring the prompt-1 agent eval runs against 0.1.1.
