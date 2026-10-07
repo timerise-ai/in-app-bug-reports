@@ -23,3 +23,8 @@ isolated: true
 timedOut: false
 runUrl: https://github.com/timerise-ai/in-app-bug-reports/actions/runs/37651237741
 ---
+
+Rubric 8/8. It installed the dependencies, ran the nine suites unmodified under vitest at 49, wrote
+`.env.example` and tracked it, put the cron bypass first in a new `proxy.ts`, and handed over all three
+things the quick start names, including that the build prerenders the member pages as static 404s until
+`host.ts` reads the session. Scored from the summary; nothing in it suggests a template edit.

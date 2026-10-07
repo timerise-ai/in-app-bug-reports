@@ -23,3 +23,8 @@ isolated: true
 timedOut: false
 runUrl: https://github.com/timerise-ai/in-app-bug-reports/actions/runs/37651237741
 ---
+
+Rubric 8/8. It installed the dependencies with npm, ran the nine suites under vitest at 49, wrote all
+eleven variables to `.env.example`, put the bypass in `proxy.ts`, left the host's identity checks null,
+and handed over all three things in the quick start's words. Scored from the summary; "configured
+vitest.config.ts excluding .agents skill copies" reads as the shipped `.*/**` exclude, not seen.
