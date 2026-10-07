@@ -23,3 +23,10 @@ isolated: true
 timedOut: false
 runUrl: https://github.com/timerise-ai/in-app-bug-reports/actions/runs/37657962880
 ---
+
+Rubric 7/8. Dependencies installed, the suites unmodified under vitest at 50, `vitest.config.ts` left as
+shipped, `.env.example` tracked with every name, host identity wired to a Supabase session, and all three
+handover points, checked against the built app. Item 5 fails: it wrote no `proxy.ts`, reasoning that the
+app resolves no tenant from the host, and told the operator to add the bypass when a proxy arrives. Quick
+start step 4 says to add the bypass, but outbox.md calls its block "the first lines of the host's proxy
+function" and never says what a host without one does. Scored from the summary.
