@@ -13,7 +13,7 @@ notification rules and the draft-tool pattern come from it. Its domain code and 
 app, where they belong.
 
 Entries 1 and 2 were observed in production logs: the 404s were counted per route and per deployment
-before the fix and after it. The others were confirmed by reading the code. Fifteen entries.
+before the fix and after it. The others were confirmed by reading the code. Sixteen entries.
 
 ## Fixed in the templates
 
@@ -101,6 +101,13 @@ issue job is pending. Designed here; it has never run in production. See [outbox
 Last delivery, last ignored delivery and why, last worker run, pending jobs and failed reports, derived
 from timestamps the bridge writes. Designed here; the earlier implementation showed only per-report sync
 states. See [operations.md](operations.md).
+
+### 16. The test config skips the installed skill
+`vitest.config.ts` shipped in 0.1.0 with `include: ["**/*.test.ts"]` and only `node_modules` excluded, so in
+an app with the skill installed in the project, under `.agents/skills/` or `.claude/skills/`, vitest also
+collected the skill's own `assets/tests/` copies, whose relative imports resolve nowhere, and `npm test`
+failed. Found by the 0.1.0 agent evals, where one agent patched the config to get its run green; reproduced
+against the template and fixed with `.*/**` in `exclude`. Designed here. See [testing.md](testing.md).
 
 ## If you are porting the earlier implementation
 

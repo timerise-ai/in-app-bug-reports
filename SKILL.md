@@ -109,10 +109,13 @@ without an explicit opt-in, no attachment reachable without a sign-in, and worke
 Copy each code block verbatim to the path on its first line. You write `server/bug-reports/host.ts`
 bodies, `components/bug-reports/host-ui.tsx`, the two SQL functions in adaptation.md, the renames
 and the strings. A template that looks redundant is not trimmed: provenance.md says why it is there.
+Install what the host lacks of `zod`, `@supabase/supabase-js`, `@supabase/ssr`, `server-only` and
+`vitest` (`ai` only with an assistant) with its package manager. The package registry is not an
+external service, and no dependency is replaced by hand-written code or dropped from a template.
 
 1. Probe the host and fill in the seams, see [adaptation.md](references/adaptation.md).
 2. Create the tables, policies, outbox and bucket, see [data-model.md](references/data-model.md).
-3. Register the GitHub App and add the client and tracker, see [github-app.md](references/github-app.md).
+3. Add the client, the tracker and `.env.example` with all eleven names, see [github-app.md](references/github-app.md).
 4. Add the outbox, the worker, the cron and the proxy bypass, see [outbox.md](references/outbox.md).
 5. Add the webhook, see [webhook.md](references/webhook.md).
 6. Add uploads and the attachment route, see [attachments.md](references/attachments.md).
@@ -120,8 +123,12 @@ and the strings. A template that looks redundant is not trimmed: provenance.md s
 8. Build the form, the list and the thread, see [member-ui.md](references/member-ui.md).
 9. Wire the notifications, see [notifications.md](references/notifications.md).
 10. Add the assistant's draft tool, see [assistant-tool.md](references/assistant-tool.md).
-11. Run the suites, reporting 49, see [testing.md](references/testing.md).
+11. Run the nine suites unmodified under vitest, reporting 49, see [testing.md](references/testing.md).
 12. Add the operator view and walk the go-live list, see [operations.md](references/operations.md).
+
+End by telling the operator three things: the bridge is off, and reports are saved and wait, until the
+first six variables in github-app.md are set; the migration, the two `app` functions and the GitHub App are theirs to
+apply and register; and while `currentMember` and `currentOperator` answer null, every page is a 404.
 
 ## Reference directory
 
@@ -129,7 +136,7 @@ and the strings. A template that looks redundant is not trimmed: provenance.md s
 |---|---|---|
 | Fitting it to a host app | seam, BugReportsHost, host.ts, host-ui, rename, tenant, member, operator, i18n, strings | [adaptation.md](references/adaptation.md) |
 | Tables and policies | bug_reports, RLS, insert only, per-tenant number, advisory lock, outbox, bucket | [data-model.md](references/data-model.md) |
-| The GitHub side | GitHub App, JWT, RS256, installation token, 401, 422, 429, rate limit, IssueTracker, marker, issue body | [github-app.md](references/github-app.md) |
+| The GitHub side | GitHub App, env, .env.example, JWT, RS256, installation token, 401, 422, 429, rate limit, IssueTracker, marker, issue body | [github-app.md](references/github-app.md) |
 | Sending and retrying | outbox, claim, lease, MAX_ATTEMPTS, duplicate issue, reconcile, cursor, Vercel Cron, 404, proxy, CRON_PATHS | [outbox.md](references/outbox.md) |
 | Hearing back | webhook, X-Hub-Signature-256, ping, X-GitHub-Delivery, redelivery, state_reason, /reply, echo, Domain not configured | [webhook.md](references/webhook.md) |
 | Files | upload, 1 MB, createSignedUploadUrl, uploadToSignedUrl, paste screenshot, signed URL, 404 not 403, SVG | [attachments.md](references/attachments.md) |
@@ -137,7 +144,7 @@ and the strings. A template that looks redundant is not trimmed: provenance.md s
 | The screens | form, markdown preview, list, thread, help page button, Not a menu section, privacy hint | [member-ui.md](references/member-ui.md) |
 | Telling people | bell, push, notifyMembers, tag, mark read, reporter, commenters | [notifications.md](references/notifications.md) |
 | The assistant | draft_bug_report, AI SDK tool, tool part, output-available, confirm card, sessionStorage, prompt injection | [assistant-tool.md](references/assistant-tool.md) |
-| Proving it | vitest, tests, server-only stub, fake tracker, integration | [testing.md](references/testing.md) |
+| Proving it | vitest, tests, npm test, exclude, server-only stub, fake tracker, integration | [testing.md](references/testing.md) |
 | Running it | setup, env, preview label, one App per project, health, stale worker, failed sync, rotate key | [operations.md](references/operations.md) |
 | What the audit changed | audit, fixed, kept deliberately, added, fix order | [provenance.md](references/provenance.md) |
 

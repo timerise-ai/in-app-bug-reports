@@ -28,12 +28,37 @@ report text is whatever a member typed.
 | `GITHUB_APP_INSTALLATION_ID` | The number at the end of the installation URL |
 | `GITHUB_REPORTS_REPO` | `owner/name` |
 | `GITHUB_WEBHOOK_SECRET` | The webhook secret, the same value as in the App |
-| `GITHUB_REPORTS_LABEL` | Optional; `tenant-report` by default, `tenant-report-preview` on preview |
 | `OPERATOR_ORIGIN` | The operator host's origin, used for links in issues |
+| `GITHUB_REPORTS_LABEL` | Optional; `tenant-report` by default, `tenant-report-preview` on preview |
 | `CRON_SECRET` | The bearer Vercel Cron sends to the worker |
 
 All of them are read at request time and none at build time. Missing any of the first six turns the bridge
 off without an error: reports are saved and wait.
+
+The module also reads three Supabase variables, under the names Supabase's own guides use:
+`NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` in `host.ts`, and `NEXT_PUBLIC_SUPABASE_URL`
+with `NEXT_PUBLIC_SUPABASE_ANON_KEY` in the upload picker. The two `NEXT_PUBLIC_` values are inlined into the
+browser bundle when the app is built; nothing fails without them.
+
+Write all eleven to `.env.example` at the app root, empty, with every name spelled as here. Add the host's
+own below them (an operator allowlist, say), never a renamed one, and when `.gitignore` ignores `.env*`, add
+`!.env.example` so the file is tracked. Real values go in the deployment's environment, never in a tracked
+file.
+
+```bash
+# .env.example
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+GITHUB_APP_ID=
+GITHUB_APP_PRIVATE_KEY=
+GITHUB_APP_INSTALLATION_ID=
+GITHUB_REPORTS_REPO=
+GITHUB_WEBHOOK_SECRET=
+OPERATOR_ORIGIN=
+GITHUB_REPORTS_LABEL=
+CRON_SECRET=
+```
 
 ```typescript
 // lib/github/env.ts

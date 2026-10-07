@@ -17,8 +17,11 @@ Nine suites, 49 tests, all on pure logic or on the GitHub client with a fake `fe
 
 ## Wiring them
 
-They are written for vitest. The GitHub client imports `server-only`, which throws outside a React Server
-environment, so the test config aliases it to an empty module:
+They are written for vitest: install it with the host's package manager, `npm i -D vitest`, since the
+package registry is not an external service. Copy the nine files as they are and wire them to `npm test` as
+`vitest run`; never edit one, and never port them to another runner. The GitHub client imports
+`server-only`, which throws outside a React Server environment, so the test config aliases it to an empty
+module:
 
 ```typescript
 // vitest.config.ts
@@ -32,7 +35,9 @@ export default defineConfig({
       "server-only": fileURLToPath(new URL("./test/server-only.ts", import.meta.url)),
     },
   },
-  test: { include: ["**/*.test.ts"], exclude: ["node_modules/**"] },
+  // `.*/**` keeps out the skill's own copy of these suites, installed under `.agents/skills/` or
+  // `.claude/skills/`, whose relative imports resolve nowhere and would fail the run.
+  test: { include: ["**/*.test.ts"], exclude: ["node_modules/**", ".*/**"] },
 });
 ```
 
@@ -42,7 +47,8 @@ export {};
 ```
 
 `cron-paths.test.ts` reads `vercel.json` from the working directory, so run the suite from the app root.
-Under `bun test` the only change is the import line in each file.
+The `exclude` is not optional when the skill is installed inside the project, as `npx skills add` does:
+without it vitest also collects the copies under `assets/tests/` there and the run fails.
 
 ## What is not covered by these suites
 

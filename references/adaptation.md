@@ -334,8 +334,11 @@ an action reports a refusal, how a list pages, which component confirms a destru
 notification feed is written, and how the proxy decides which host serves what. The module follows those
 conventions even where its templates do something else.
 
-Add no dependency the host does not have. The module needs `zod`, `@supabase/supabase-js`,
-`@supabase/ssr` for the browser upload, and `ai` only for the assistant tool.
+The module needs `zod`, `@supabase/supabase-js`, `@supabase/ssr` for the browser upload, `server-only`,
+`vitest` for the suites, and `ai` only for the assistant tool. Install the ones the host lacks with its
+package manager: the package registry is not an external service, and a note that none is reachable means
+GitHub and Supabase, not npm. Add nothing beyond these, and never replace one with hand-written code; the
+templates are typed against them, and a substitute means editing every template that imports it.
 
 ## The domain rename
 

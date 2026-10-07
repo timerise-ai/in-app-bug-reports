@@ -85,7 +85,7 @@ the skill stays cheap in context until a topic is actually needed.
 | `LICENSE` | MIT |
 | `references/adaptation.md` | The seam contract: `BugReportsHost`, the client UI module, the two SQL functions, the strings, the rename table, other backends |
 | `references/data-model.md` | The types, the migration with its policies, numbering trigger, outbox, ledger, bridge row and bucket, and the checks it was put through |
-| `references/github-app.md` | Registering the App, the environment, the JWT and token client, the `IssueTracker` seam, what an issue says |
+| `references/github-app.md` | Registering the App, the environment and `.env.example`, the JWT and token client, the `IssueTracker` seam, what an issue says |
 | `references/outbox.md` | The retry policy, the two jobs, the worker and reconcile, the health record, the cron route and the proxy bypass |
 | `references/webhook.md` | Signature, the delivery plan and its table, the visibility rule, echoes, applying it, the route and its host |
 | `references/attachments.md` | Reserve, upload, claim, read and sweep; the sign-in route; the browser picker |
@@ -136,7 +136,8 @@ look and its language.
 - A **GitHub App** you control, installed on one private repository, and a host the proxy serves without
   resolving a tenant for the operators and the webhook.
 - A scheduler that calls a route every five minutes with a bearer: Vercel Cron, or any other.
-- `zod`, `@supabase/supabase-js`, `@supabase/ssr`, and `ai` 7 for the assistant tool.
+- `zod`, `@supabase/supabase-js`, `@supabase/ssr`, `server-only`, `vitest` for the suites, and `ai` 7 for
+  the assistant tool, installed with the app's package manager.
 
 ## Security
 

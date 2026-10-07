@@ -19,7 +19,7 @@ runs in a scratch project; the recipe is under *Editing conventions* below.
 
 The skill was written by the engineer who has shipped this module; the earlier implementation it was audited
 against was the bug report bridge of a multi-tenant console on Next.js 16, Vercel and Supabase.
-`references/provenance.md` is the ledger of that audit: fifteen entries on what changed and how the templates
+`references/provenance.md` is the ledger of that audit: sixteen entries on what changed and how the templates
 verify it, what was kept deliberately, and what was designed here and has never run in production. That file
 is the rationale layer: read it before "simplifying" anything.
 
@@ -55,7 +55,9 @@ is the rationale layer: read it before "simplifying" anything.
   project: write each to the path on its first line in a scratch directory, add `vercel.json` with the one
   cron from `outbox.md`, copy the contents of `assets/tests/` to the scratch root (each suite's first line is
   its path from the app root, e.g. `lib/github/env.test.ts`), install `next`, `react`, `@types/react`,
-  `@types/node`, `ai`, `zod`, `@supabase/supabase-js`, `@supabase/ssr`, `vitest` and `typescript`, then
+  `@types/node`, `ai`, `zod`, `@supabase/supabase-js`, `@supabase/ssr`, `server-only`, `vitest` and
+  `typescript`, copy `assets/` once more to `.agents/skills/in-app-bug-reports/assets/` as an install would,
+  then
 
   ```bash
   npx tsc --noEmit    # strict, noUncheckedIndexedAccess, skipLibCheck, jsx react-jsx, paths {"@/*": ["./*"]}
@@ -93,7 +95,7 @@ is the rationale layer: read it before "simplifying" anything.
   the object's size and type; 404 rather than 403; the cron bypass placed first in the proxy; ignored
   deliveries answered 200 and recorded. Each is a ledger entry or a documented judgement call. Check
   `provenance.md` before touching one.
-- **The numbers that remain are load-bearing.** 49 tests in nine suites, fifteen ledger entries, GitHub's
+- **The numbers that remain are load-bearing.** 49 tests in nine suites, sixteen ledger entries, GitHub's
   own limits (65 536 characters in a body, 256 in a title, a ten-minute App JWT, a ten-second webhook
   budget), and the design parameters (six attempts, a five-minute lease and cron, a 60-second wait for an
   issue, ten reports an hour, ten files, 10 MB and 25 MB caps, a 60-second signed URL, fifty a page, a
