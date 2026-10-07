@@ -23,3 +23,8 @@ isolated: true
 timedOut: false
 runUrl: https://github.com/timerise-ai/in-app-bug-reports/actions/runs/37660542627
 ---
+
+Rubric 8/8. Dependencies installed (`ai` left out with the assistant tool, which the app has no chat for),
+the nine suites unmodified under vitest at 50, all eleven names in a tracked `.env.example`, a new
+`proxy.ts` with the bypass and the documented webhook addition, host identity left null, and the three
+handover points in the final message, including the static 404 prerender. Scored from the summary.
