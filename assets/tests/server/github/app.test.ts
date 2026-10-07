@@ -1,7 +1,9 @@
 // server/github/app.test.ts
 import { generateKeyPairSync, verify } from "node:crypto";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { GithubBridgeEnv } from "@/lib/github/env";
+import { commentMarker, reportMarker } from "@/lib/bug-reports/tracker-format";
+import { githubTracker } from "@/server/bug-reports/tracker";
 import { GithubError, createAppJwt, getInstallationToken, githubRequest, resetGithubTokenCache } from "./app";
 
 const { privateKey, publicKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
@@ -86,5 +88,26 @@ describe("githubRequest", () => {
     }).catch((e: unknown) => e);
     expect(err).toBeInstanceOf(GithubError);
     expect((err as GithubError).retryable).toBe(true);
+  });
+});
+
+describe("githubTracker", () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("finds a marker past the first hundred issues and comments, so a retry opens no duplicate", async () => {
+    const [r1, r2, c1] = ["5f0c4e2a-0000-4000-8000-000000000001", "5f0c4e2a-0000-4000-8000-000000000002", "5f0c4e2a-0000-4000-8000-000000000003"];
+    const full = (body: string) => Array.from({ length: 100 }, (_, i) => ({ id: i, number: 1000 - i, body }));
+    const issue = { number: 5, node_id: "I5", html_url: "https://github.com/acme/app/issues/5", body: `x\n\n${reportMarker(r1)}` };
+    const fetchImpl = vi.fn(async (url: string) => {
+      if (url.includes("/access_tokens")) return token("t");
+      const second = new URL(url).searchParams.get("page") === "2";
+      if (url.includes("/comments")) return json(200, second ? [{ id: 77, body: `hi\n\n${commentMarker(c1)}` }] : full("other"));
+      return json(200, second ? [issue] : full("other"));
+    });
+    vi.stubGlobal("fetch", fetchImpl);
+    const tracker = githubTracker(env);
+    expect(await tracker.findIssueByMarker(r1, new Date(0))).toEqual({ number: 5, nodeId: "I5", url: issue.html_url });
+    expect(await tracker.findCommentByMarker(5, c1, new Date(0))).toEqual({ id: 77 });
+    expect(await tracker.findIssueByMarker(r2, new Date(0))).toBeNull();
   });
 });

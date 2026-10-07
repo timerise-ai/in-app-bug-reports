@@ -131,6 +131,10 @@ whose staff are an e-mail allowlist, replaces the first two bodies with its sess
 maps it to `Member`; `currentOperator` checks the user's e-mail against the allowlist through the service
 client. Neither redirects: pages turn null into `notFound()`, actions into `{ ok: false }`.
 
+While both answer null and read no cookie, `next build` prerenders the member and operator pages as static
+404s. That is expected: they become dynamic as soon as `currentMember` reads the session. Do not add
+`export const dynamic` to the pages to change it.
+
 ## The two SQL functions
 
 The policies in data-model.md call these. They are the host's, because only the host knows how a signed-in

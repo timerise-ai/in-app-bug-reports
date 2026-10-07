@@ -1,6 +1,6 @@
 # Testing: what the suites prove
 
-Nine suites, 49 tests, all on pure logic or on the GitHub client with a fake `fetch`. They live in
+Nine suites, 50 tests, all on pure logic or on the GitHub client with a fake `fetch`. They live in
 `assets/tests/` and are copied into the generated app at the paths on their first lines.
 
 | Suite | Tests | Proves |
@@ -13,7 +13,7 @@ Nine suites, 49 tests, all on pure logic or on the GitHub client with a fake `fe
 | `lib/github/signature.test.ts` | 3 | GitHub's signature verifies; other bodies, secrets and missing parts do not; a truncated or multi-byte header returns false instead of throwing |
 | `lib/github/env.test.ts` | 4 | Any missing variable means unconfigured; the key's newlines and the origin's slash are fixed; the label defaults |
 | `lib/cron-paths.test.ts` | 2 | `CRON_PATHS` equals the crons in `vercel.json`; nothing next to a path matches |
-| `server/github/app.test.ts` | 7 | The JWT is RS256, from the App, backdated, under ten minutes, and verifies; the token is narrowed and cached and refreshed near expiry; a 401 retries once with a new token; outages are retryable and our errors are not |
+| `server/github/app.test.ts` | 8 | The JWT is RS256, from the App, backdated, under ten minutes, and verifies; the token is narrowed and cached and refreshed near expiry; a 401 retries once with a new token; outages are retryable and our errors are not; a marker past the first page of issues or comments is still found |
 
 ## Wiring them
 

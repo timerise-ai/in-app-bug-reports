@@ -331,17 +331,25 @@ export function githubTracker(env: GithubBridgeEnv): IssueTracker {
       return { id: c.id };
     },
 
+    // Both lookups page until a short page: a marker past the first hundred is still found, or the retry
+    // would open a duplicate.
     async findIssueByMarker(reportId, since) {
-      const issues = await list({ since: since.toISOString(), sort: "created", direction: "desc" });
-      const hit = issues.find((i) => !i.pull_request && parseReportMarker(i.body) === reportId);
-      return hit ? toTracked(hit) : null;
+      for (let page = 1; ; page++) {
+        const issues = await list({ since: since.toISOString(), sort: "created", direction: "desc", page: String(page) });
+        const hit = issues.find((i) => !i.pull_request && parseReportMarker(i.body) === reportId);
+        if (hit) return toTracked(hit);
+        if (issues.length < 100) return null;
+      }
     },
 
     async findCommentByMarker(issueNumber, commentId, since) {
-      const q = new URLSearchParams({ since: since.toISOString(), per_page: "100" });
-      const comments = await githubRequest<GhComment[]>(env, "GET", `${base}/issues/${issueNumber}/comments?${q}`);
-      const hit = comments.find((c) => parseCommentMarker(c.body) === commentId);
-      return hit ? { id: hit.id } : null;
+      for (let page = 1; ; page++) {
+        const q = new URLSearchParams({ since: since.toISOString(), per_page: "100", page: String(page) });
+        const comments = await githubRequest<GhComment[]>(env, "GET", `${base}/issues/${issueNumber}/comments?${q}`);
+        const hit = comments.find((c) => parseCommentMarker(c.body) === commentId);
+        if (hit) return { id: hit.id };
+        if (comments.length < 100) return null;
+      }
     },
 
     async listUpdatedIssues(since) {

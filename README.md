@@ -94,7 +94,7 @@ the skill stays cheap in context until a topic is actually needed.
 | `references/notifications.md` | Who is told what, one notice per report, sending and marking read |
 | `references/assistant-tool.md` | The draft-tool pattern, the tool, registering it, the confirm card |
 | `references/operations.md` | The operator view and its health line, the go-live list, the failure table, credentials, privacy |
-| `references/testing.md` | The nine suites, 49 tests, how to wire them, what they do not cover, an integration test worth adding |
+| `references/testing.md` | The nine suites, 50 tests, how to wire them, what they do not cover, an integration test worth adding |
 | `references/provenance.md` | The engineering ledger: what the audit changed and how the templates verify it, what was kept on purpose, and what is new in the skill |
 | `assets/tests/` | The nine suites as files, at the paths on their first lines |
 | `evals/` | The prompts an operator types after installing (`prompts.md`) and one file per agent eval: the skill installed into an empty Next.js app, one prompt, no help, then type-checked, built and tested |
@@ -149,7 +149,7 @@ worker fails closed without `CRON_SECRET`, and the proxy bypass admits exactly t
 
 ## Verification
 
-The pure logic and the GitHub client carry 49 tests in nine vitest suites. Every TypeScript block,
+The pure logic and the GitHub client carry 50 tests in nine vitest suites. Every TypeScript block,
 including the routes, actions, pages and components, type-checks under `strict` and
 `noUncheckedIndexedAccess` against `next` 16, `react` 19, `ai` 7, `zod` 4, `@supabase/supabase-js` 2 and
 `@supabase/ssr`. The migration was applied to an empty Postgres and its policies exercised as the
@@ -173,7 +173,7 @@ go-live list in `references/operations.md` is that pass.
 Issues and pull requests are welcome here. Pure markdown, with no build step, but the code blocks are checked:
 every TypeScript block names its destination on the first line, and the blocks are written to compile as one
 project under `strict` and `noUncheckedIndexedAccess`, with the suites in `assets/tests/` passing under
-vitest, 49 tests. Claims in this skill are meant to be verifiable: if you change a factual claim, say how you
+vitest, 50 tests. Claims in this skill are meant to be verifiable: if you change a factual claim, say how you
 verified it, whether against GitHub's REST and webhook documentation, the Supabase client, the AI SDK, or a
 reproduction.
 

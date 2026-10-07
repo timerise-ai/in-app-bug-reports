@@ -14,7 +14,7 @@ description: >
   signed upload URL, createSignedUploadUrl, private attachments, draft tool, needs approval. Carries
   an outbox with marker de-duplication, the webhook rules that keep the team's conversation private,
   login-gated attachments that never become public URLs, cron and webhook routes that a multi-tenant
-  proxy serves without a tenant, and 49 tests. Next.js App Router with Postgres and Supabase RLS; the host
+  proxy serves without a tenant, and 50 tests. Next.js App Router with Postgres and Supabase RLS; the host
   seam is one BugReportsHost object and a client UI module, and the tracker sits behind IssueTracker.
   Not error monitoring, not a help center and not a support inbox.
 ---
@@ -70,7 +70,8 @@ without an explicit opt-in, no attachment reachable without a sign-in, and worke
 
 1. **Vercel Cron calls the deployment's own `*.vercel.app` host.** A proxy that resolves the tenant
    from the host answers every cron 404, and no worker ever runs. List the cron paths in
-   `CRON_PATHS` and pass them before tenant resolution; the test keeps the list equal to `vercel.json`.
+   `CRON_PATHS` and pass them before tenant resolution with the block in outbox.md as written, and
+   nothing else through it; the test keeps the list equal to `vercel.json`.
 2. **The webhook URL must be a host the proxy serves without a tenant.** On a tenant-resolving proxy
    an unconfigured operator host answers "Domain not configured" and GitHub's deliveries all 404.
 3. **GitHub does not redeliver a failed webhook by itself.** Process the delivery inline and answer
@@ -109,6 +110,7 @@ without an explicit opt-in, no attachment reachable without a sign-in, and worke
 Copy each code block verbatim to the path on its first line. You write `server/bug-reports/host.ts`
 bodies, `components/bug-reports/host-ui.tsx`, the two SQL functions in adaptation.md, the renames
 and the strings. A template that looks redundant is not trimmed: provenance.md says why it is there.
+Nor is one extended: no polling, no `dynamic` export, no check or retry it does not ship.
 Install what the host lacks of `zod`, `@supabase/supabase-js`, `@supabase/ssr`, `server-only` and
 `vitest` (`ai` only with an assistant) with its package manager. The package registry is not an
 external service, and no dependency is replaced by hand-written code or dropped from a template.
@@ -123,7 +125,7 @@ external service, and no dependency is replaced by hand-written code or dropped 
 8. Build the form, the list and the thread, see [member-ui.md](references/member-ui.md).
 9. Wire the notifications, see [notifications.md](references/notifications.md).
 10. Add the assistant's draft tool, see [assistant-tool.md](references/assistant-tool.md).
-11. Run the nine suites unmodified under vitest, reporting 49, see [testing.md](references/testing.md).
+11. Run the nine suites unmodified under vitest, reporting 50, see [testing.md](references/testing.md).
 12. Add the operator view and walk the go-live list, see [operations.md](references/operations.md).
 
 End by telling the operator three things: the bridge is off, and reports are saved and wait, until the

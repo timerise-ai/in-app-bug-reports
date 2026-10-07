@@ -19,7 +19,7 @@ runs in a scratch project; the recipe is under *Editing conventions* below.
 
 The skill was written by the engineer who has shipped this module; the earlier implementation it was audited
 against was the bug report bridge of a multi-tenant console on Next.js 16, Vercel and Supabase.
-`references/provenance.md` is the ledger of that audit: sixteen entries on what changed and how the templates
+`references/provenance.md` is the ledger of that audit: seventeen entries on what changed and how the templates
 verify it, what was kept deliberately, and what was designed here and has never run in production. That file
 is the rationale layer: read it before "simplifying" anything.
 
@@ -61,7 +61,7 @@ is the rationale layer: read it before "simplifying" anything.
 
   ```bash
   npx tsc --noEmit    # strict, noUncheckedIndexedAccess, skipLibCheck, jsx react-jsx, paths {"@/*": ["./*"]}
-  npx vitest run      # 49 tests, with the server-only alias from testing.md
+  npx vitest run      # 50 tests, with the server-only alias from testing.md
   npx vitest run lib/github/env.test.ts   # one suite
   ```
 
@@ -95,7 +95,7 @@ is the rationale layer: read it before "simplifying" anything.
   the object's size and type; 404 rather than 403; the cron bypass placed first in the proxy; ignored
   deliveries answered 200 and recorded. Each is a ledger entry or a documented judgement call. Check
   `provenance.md` before touching one.
-- **The numbers that remain are load-bearing.** 49 tests in nine suites, sixteen ledger entries, GitHub's
+- **The numbers that remain are load-bearing.** 50 tests in nine suites, seventeen ledger entries, GitHub's
   own limits (65 536 characters in a body, 256 in a title, a ten-minute App JWT, a ten-second webhook
   budget), and the design parameters (six attempts, a five-minute lease and cron, a 60-second wait for an
   issue, ten reports an hour, ten files, 10 MB and 25 MB caps, a 60-second signed URL, fifty a page, a

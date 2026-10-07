@@ -13,7 +13,7 @@ notification rules and the draft-tool pattern come from it. Its domain code and 
 app, where they belong.
 
 Entries 1 and 2 were observed in production logs: the 404s were counted per route and per deployment
-before the fix and after it. The others were confirmed by reading the code. Sixteen entries.
+before the fix and after it. The others were confirmed by reading the code. Seventeen entries.
 
 ## Fixed in the templates
 
@@ -108,6 +108,13 @@ an app with the skill installed in the project, under `.agents/skills/` or `.cla
 collected the skill's own `assets/tests/` copies, whose relative imports resolve nowhere, and `npm test`
 failed. Found by the 0.1.0 agent evals, where one agent patched the config to get its run green; reproduced
 against the template and fixed with `.*/**` in `exclude`. Designed here. See [testing.md](testing.md).
+
+### 17. Marker lookups read every page
+`findIssueByMarker` and `findCommentByMarker` shipped through 0.1.1 reading only the first page of 100. A retry
+after more than a hundred newer labelled issues, or on an issue with more than a hundred comments since the
+job began, missed its own marker and opened a duplicate. Found by the 0.1.1 agent evals, where one agent
+paged the lookups; reproduced with a fake `fetch` that puts the marker on page 2, and fixed by paging until a
+short page, with a test in `server/github/app.test.ts`. Designed here. See [github-app.md](github-app.md).
 
 ## If you are porting the earlier implementation
 
