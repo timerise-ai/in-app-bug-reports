@@ -145,7 +145,8 @@ The webhook verifies `X-Hub-Signature-256` over the raw body with a timing-safe 
 without a secret. The installation token is requested narrowed to one repository and to issues. Member text
 reaches GitHub with HTML comments removed and mentions neutralised; nothing a member types can forge a
 marker or ping a person. Attachments are never public, and a probe for another tenant's file is a 404. The
-worker fails closed without `CRON_SECRET`, and the proxy bypass admits exactly the paths in `vercel.json`.
+worker fails closed without `CRON_SECRET`, and the proxy bypass admits exactly the paths in `vercel.json`,
+plus the webhook, which verifies its own signature, if the host adds it.
 
 ## Verification
 

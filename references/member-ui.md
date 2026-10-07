@@ -67,6 +67,7 @@ import { useReportStrings } from "./use-strings";
  * textarea, keep the behaviour.
  */
 export function MarkdownField({
+  label,
   value,
   onChange,
   maxLength,
@@ -75,6 +76,8 @@ export function MarkdownField({
   footer,
   onPaste,
 }: {
+  /** The textarea's accessible name: it sits under tabs, not inside a `<label>`. */
+  label: string;
   value: string;
   onChange: (value: string) => void;
   maxLength?: number;
@@ -96,7 +99,7 @@ export function MarkdownField({
         </button>
       </div>
       {tab === "write" ? (
-        <textarea rows={rows} value={value} maxLength={maxLength} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onPaste={onPaste} />
+        <textarea aria-label={label} rows={rows} value={value} maxLength={maxLength} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onPaste={onPaste} />
       ) : (
         <div role="tabpanel">{value.trim() ? <Markdown source={value} /> : t("previewEmpty")}</div>
       )}
@@ -188,12 +191,14 @@ export function ReportForm({
         submit();
       }}
     >
+      <h1>{t("newTitle")}</h1>
       <p>{t("privacyHint")}</p>
       <label>
         {t("fieldTitle")}
         <input required value={title} maxLength={REPORT_LIMITS.titleMax} onChange={(e) => setTitle(e.target.value)} />
       </label>
       <MarkdownField
+        label={t("fieldBody")}
         value={body}
         onChange={setBody}
         maxLength={REPORT_LIMITS.bodyMax}
@@ -422,6 +427,7 @@ export function ReportThread({
         <h2>{t("addComment")}</h2>
         {report.status !== "open" && !operator && <p>{t("closedCommentNote")}</p>}
         <MarkdownField
+          label={t("addComment")}
           value={body}
           onChange={setBody}
           rows={4}

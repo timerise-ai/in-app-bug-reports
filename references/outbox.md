@@ -492,6 +492,6 @@ export async function proxy(request: NextRequest) {
 
 The bypass goes first in the proxy, before any host logic. The routes it admits authenticate themselves
 with `CRON_SECRET` and fail closed without it, so the proxy loses nothing by not looking at them. Copy it
-as written, the header strip included, even in a proxy that sets no tenant header yet; and admit nothing
-else through it. The webhook is not a cron path: it is reached on the operator host, which the proxy
-serves without a tenant (webhook.md).
+as written, the header strip included, even in a proxy that sets no tenant header yet. The one harmless
+addition is `/api/github/webhook` as a second condition beside `isCronPath`, never in `CRON_PATHS`: it
+verifies its own signature and reads no tenant. GitHub still delivers to the operator host (webhook.md).

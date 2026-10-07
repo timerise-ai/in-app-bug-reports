@@ -70,8 +70,8 @@ without an explicit opt-in, no attachment reachable without a sign-in, and worke
 
 1. **Vercel Cron calls the deployment's own `*.vercel.app` host.** A proxy that resolves the tenant
    from the host answers every cron 404, and no worker ever runs. List the cron paths in
-   `CRON_PATHS` and pass them before tenant resolution with the block in outbox.md as written, and
-   nothing else through it; the test keeps the list equal to `vercel.json`.
+   `CRON_PATHS` and pass them before tenant resolution with the block in outbox.md as written; the
+   test keeps the list equal to `vercel.json`. Only the webhook may join that bypass, beside it.
 2. **The webhook URL must be a host the proxy serves without a tenant.** On a tenant-resolving proxy
    an unconfigured operator host answers "Domain not configured" and GitHub's deliveries all 404.
 3. **GitHub does not redeliver a failed webhook by itself.** Process the delivery inline and answer
