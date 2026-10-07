@@ -32,8 +32,8 @@ report text is whatever a member typed.
 | `GITHUB_REPORTS_LABEL` | Optional; `tenant-report` by default, `tenant-report-preview` on preview |
 | `CRON_SECRET` | The bearer Vercel Cron sends to the worker |
 
-All of them are read at request time and none at build time. Missing any of the first six turns the bridge
-off without an error: reports are saved and wait.
+All of them are read at request time and none at build time. Missing any of the six above
+`GITHUB_REPORTS_LABEL` turns the bridge off without an error: reports are saved and wait.
 
 The module also reads three Supabase variables, under the names Supabase's own guides use:
 `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` in `host.ts`, and `NEXT_PUBLIC_SUPABASE_URL`

@@ -131,9 +131,10 @@ external service, and no dependency is replaced by hand-written code or dropped 
 12. Add the operator view and walk the go-live list, see [operations.md](references/operations.md).
 
 Your final message itself, not a README it links to, tells the operator three things: the bridge is off,
-and reports are saved and wait, until the first six variables in github-app.md are set; the migration,
-the two `app` functions and the GitHub App are theirs to apply and register; and while `currentMember`
-and `currentOperator` answer null, every page is a 404.
+and reports are saved and wait, until `GITHUB_APP_ID`, `GITHUB_APP_PRIVATE_KEY`,
+`GITHUB_APP_INSTALLATION_ID`, `GITHUB_REPORTS_REPO`, `GITHUB_WEBHOOK_SECRET` and `OPERATOR_ORIGIN` are
+set; the migration, the two `app` functions and the GitHub App are theirs to apply and register; and while
+`currentMember` and `currentOperator` answer null, every page is a 404.
 
 ## Reference directory
 
