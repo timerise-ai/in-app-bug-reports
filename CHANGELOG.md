@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4] - 2026-10-07
+
+Fix release, from scoring the prompt-1 agent eval runs against 0.1.3.
+
+### Changed
+
+- Quick start step 4 and outbox.md: a host with no proxy gets a new `proxy.ts` holding the cron bypass, so
+  it is in place before tenant resolution is added.
+- `SKILL.md`: the three handover points go in the final message itself, not only in a README it links to.
+
 ## [0.1.3] - 2026-10-07
 
 Fix release, from scoring the prompt-1 agent eval runs against 0.1.2.
