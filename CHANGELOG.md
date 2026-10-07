@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1] - 2026-10-07
+
+Fix release, from scoring the prompt-1 agent eval runs against 0.1.0.
+
+### Fixed
+
+- `vitest.config.ts` (testing.md) now excludes `.*/**`. With the skill installed inside the project, as
+  `npx skills add` does, vitest collected the skill's own copies of the suites and `npm test` failed. Apps
+  built from 0.1.0 add `".*/**"` to `test.exclude`.
+- github-app.md: `OPERATOR_ORIGIN` is now among the "first six" variables that switch the bridge on, as
+  `lib/github/env.ts` already required; the optional label had taken its place in the table.
+
+### Changed
+
+- The quick start in `SKILL.md` and adaptation.md name every dependency, `server-only` included, say the
+  package registry is not an external service, and forbid replacing a dependency with hand-written code.
+- The suites run unmodified under vitest; testing.md no longer offers a port to `bun test`.
+- github-app.md lists all eleven variables the module reads as an `.env.example` block.
+- outbox.md: the cron bypass is copied with its header strip and admits nothing else.
+- `SKILL.md` ends the quick start with what the operator must be told.
+
 ## [0.1.0] - 2026-10-06
 
 First release: an in-app bug report module for Next.js App Router apps, bridged to
