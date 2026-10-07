@@ -119,7 +119,8 @@ external service, and no dependency is replaced by hand-written code or dropped 
 1. Probe the host and fill in the seams, see [adaptation.md](references/adaptation.md).
 2. Create the tables, policies, outbox and bucket, see [data-model.md](references/data-model.md).
 3. Add the client, the tracker and `.env.example` with all eleven names, see [github-app.md](references/github-app.md).
-4. Add the outbox, the worker, the cron and the proxy bypass, see [outbox.md](references/outbox.md).
+4. Add the outbox, the worker, the cron and the proxy bypass, a new `proxy.ts` if the host has none,
+   see [outbox.md](references/outbox.md).
 5. Add the webhook, see [webhook.md](references/webhook.md).
 6. Add uploads and the attachment route, see [attachments.md](references/attachments.md).
 7. Add the read models and the actions, see [actions.md](references/actions.md).
@@ -129,9 +130,10 @@ external service, and no dependency is replaced by hand-written code or dropped 
 11. Run the nine suites unmodified under vitest, reporting 50, see [testing.md](references/testing.md).
 12. Add the operator view and walk the go-live list, see [operations.md](references/operations.md).
 
-End by telling the operator three things: the bridge is off, and reports are saved and wait, until the
-first six variables in github-app.md are set; the migration, the two `app` functions and the GitHub App are theirs to
-apply and register; and while `currentMember` and `currentOperator` answer null, every page is a 404.
+Your final message itself, not a README it links to, tells the operator three things: the bridge is off,
+and reports are saved and wait, until the first six variables in github-app.md are set; the migration,
+the two `app` functions and the GitHub App are theirs to apply and register; and while `currentMember`
+and `currentOperator` answer null, every page is a 404.
 
 ## Reference directory
 

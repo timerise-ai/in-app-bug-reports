@@ -490,6 +490,9 @@ export async function proxy(request: NextRequest) {
 }
 ```
 
+A host with no proxy yet gets a new `proxy.ts` holding this block, so the bypass is already in place when
+tenant resolution is added, rather than remembered then: local development never shows the 404.
+
 The bypass goes first in the proxy, before any host logic. The routes it admits authenticate themselves
 with `CRON_SECRET` and fail closed without it, so the proxy loses nothing by not looking at them. Copy it
 as written, the header strip included, even in a proxy that sets no tenant header yet. The one harmless
