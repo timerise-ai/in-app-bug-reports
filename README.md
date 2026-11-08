@@ -171,6 +171,7 @@ go-live list in `references/operations.md` is that pass.
 | Customer support conversations and SLAs | A support inbox. Reports here go to engineers, not to agents |
 | An assistant in Slack with approvals | The `slack-ai-bot` skill |
 | Mirroring every issue of a repository | A GitHub sync tool. This module bridges the issues it created, by label and marker |
+| Resolving one report: evidence, fix, proof and the `/reply` | The `resolve-bug-report` skill |
 
 ## Contributing
 

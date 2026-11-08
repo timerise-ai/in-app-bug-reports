@@ -47,6 +47,7 @@ without an explicit opt-in, no attachment reachable without a sign-in, and worke
 - **Help articles and search**: the `help-center-markdown` skill; link its pages to this form.
 - **Customer support conversations**: a support inbox. Reports here go to engineers, not to agents.
 - **Assistants in Slack**: the `slack-ai-bot` skill, which carries its own approval round trip.
+- **Resolving a report once it arrives**: the `resolve-bug-report` skill, from evidence to the `/reply`.
 
 ## Architecture
 
